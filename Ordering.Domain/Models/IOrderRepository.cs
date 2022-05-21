@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Models
 {
-    internal interface IOrderRepository
+    public interface IOrderRepository
     {
+        Task<int> InsertOrder(Order order);
     }
 }

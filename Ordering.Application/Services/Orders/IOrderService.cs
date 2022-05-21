@@ -10,8 +10,8 @@ namespace Ordering.Application.Services.Orders
 {
     public interface IOrderService
     {
-        Task<int> InsertOrderAsync();
-        Task<bool> DeleteOrderAsync();
+        Task<int> InsertOrderAsync(OrderDto orderDto);
+        Task<bool> DeleteOrderAsync(int orderId);
         Task<bool> UpdateOrderStatusAsync(int orderId, OrderStatus status);
         Task<OrderDto> GetAsync();
     }

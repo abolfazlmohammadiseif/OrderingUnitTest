@@ -10,7 +10,14 @@ namespace Ordering.Application.Services.Orders
 {
     public class OrderService : IOrderService
     {
-        public Task<bool> DeleteOrderAsync()
+        private IOrderRepository _orderRepository;
+
+        public OrderService(IOrderRepository orderRepository)
+        {
+            _orderRepository = orderRepository;
+        }
+
+        public Task<bool> DeleteOrderAsync(int orderId)
         {
             throw new NotImplementedException();
         }
@@ -20,9 +27,19 @@ namespace Ordering.Application.Services.Orders
             throw new NotImplementedException();
         }
 
-        public Task<int> InsertOrderAsync()
+        public async Task<int> InsertOrderAsync(OrderDto orderDto)
         {
-            throw new NotImplementedException();
+            var order = new Order
+            {
+                OrderDate = DateTime.Now,
+                Description = orderDto.Description,
+                CustomerId = orderDto.CustomerId,
+                OrderStatusId = orderDto.OrderStatusId,
+                PaymentMethodId = orderDto.PaymentMethodId,
+                //OrderItems = orderDto.OrderItems
+            };
+            var id = await _orderRepository.InsertOrder(order);
+            return id;
         }
 
         public Task<bool> UpdateOrderStatusAsync(int orderId, OrderStatus status)
