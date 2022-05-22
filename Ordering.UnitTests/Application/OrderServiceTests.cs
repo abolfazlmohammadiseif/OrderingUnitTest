@@ -27,6 +27,8 @@ namespace Ordering.UnitTests.Application
             OrderDto orderDto = new OrderDto();
 
             var result = await _orderService.InsertOrderAsync(orderDto);
+
+            Assert.NotNull(result);
         }
     }
 }
