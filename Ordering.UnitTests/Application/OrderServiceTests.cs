@@ -23,12 +23,21 @@ namespace Ordering.UnitTests.Application
         [Fact]
         public async Task InsertOrder_GivenModel_ReturnId()
         {
-            //Assert
-            OrderDto orderDto = new OrderDto();
+            //Arrange
+            OrderDto orderDto = new OrderDto()
+            {
+                CustomerId = 1,
+                Description =" Desc of the Order!",
+                OrderItems = new List<OrderItemDto>(),
+                OrderStatusId = OrderStatus.Submitted,
+                PaymentMethodId = 1
+            };
 
+            //Act
             var result = await _orderService.InsertOrderAsync(orderDto);
 
-            Assert.NotNull(result);
+            //Assert
+            Assert.True(result >= 1);
         }
     }
 }
