@@ -19,11 +19,11 @@ namespace Ordering.Infrastructure.Repositories
         public async Task<List<Order>> GetAllOrders(int Page, int PageSize)
         {
             //var result = await _context.Set<Order>()
-            var result = await _context.Orders
+            var result = _context.Orders
                 .AsNoTracking()
                 .Skip((Page - 1) * PageSize)
                 .Take(PageSize)
-                .ToListAsync();
+                .ToList();
 
             return result;
         }
