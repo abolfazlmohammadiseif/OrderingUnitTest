@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using AutoMapper;
+using Moq;
 using Ordering.Application.Services.Orders;
 using Ordering.Application.Services.Orders.Dto;
 using Ordering.Domain.Models;
@@ -15,10 +16,12 @@ namespace Ordering.UnitTests.Application
     {
         private readonly IOrderService _orderService;
         private readonly Mock<IOrderRepository> _orderRepository;
+        private readonly Mock<IMapper> _mapper;
         public OrderServiceTests()
         {
             _orderRepository = new Mock<IOrderRepository>();
-            _orderService = new OrderService(_orderRepository.Object);
+            _mapper = new Mock<IMapper>();
+            _orderService = new OrderService(_orderRepository.Object, _mapper.Object);
         }
         [Fact]
         public async Task InsertOrder_GivenModel_ReturnId()

@@ -13,9 +13,9 @@ namespace Ordering.Api.Controllers
             _orderService = orderService;
         }
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(int Page, int PageSize)
         {
-            return Ok( _orderService.GetAsync());
+            return Ok( _orderService.GetAllAsync(Page, PageSize));
         }
     }
 }

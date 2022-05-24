@@ -1,4 +1,5 @@
-﻿using Ordering.Application.Services.Orders.Dto;
+﻿using AutoMapper;
+using Ordering.Application.Services.Orders.Dto;
 using Ordering.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace Ordering.Application.Services.Orders
     public class OrderService : IOrderService
     {
         private IOrderRepository _orderRepository;
+        public readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository)
+        public OrderService(IOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
+            _mapper = mapper;
         }
 
         public Task<bool> DeleteOrderAsync(int orderId)
@@ -22,9 +25,10 @@ namespace Ordering.Application.Services.Orders
             throw new NotImplementedException();
         }
 
-        public Task<OrderDto> GetAsync()
+        public async Task<List<OrderDto>> GetAllAsync(int Page, int PageSize)
         {
-            throw new NotImplementedException();
+            var result = await _orderRepository.GetAllOrders(Page, PageSize);
+            return _mapper.Map<List<OrderDto>>(result);
         }
 
         public async Task<int> InsertOrderAsync(OrderDto orderDto)
